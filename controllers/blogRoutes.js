@@ -33,30 +33,32 @@ router.get('/', async (req, res) => {
 //get individual post
 router.get('/post/:id', async (req, res) => {
     try {
-        const postData = await User.findByPk(req.params.id, {
+        const postData = await Post.findByPk(req.params.id, {
             include: [
                 {
-                    model: Post,
+                    model: User,
                     attributes: [
-                        'id', 
                         'username',
-                        'content',
-                        'user_id',
                     ],
                 },
             ],
         });
 
+        if (!postData) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
         const post = postData.get({ plain: true });
 
         res.render('post', {
-            ...post,
+            post: post,
             logged_in: req.session.logged_in,
         });
     } catch (err) {
         res.status(500).json(err);
     }
 });
+
 
 // route for dashboard
 router.get('/dashboard', (req, res) => {
@@ -97,29 +99,6 @@ router.get('/profile', withAuth, async (req, res) => {
     }
 });
 
-// //creating user
-// router.post('/api/users', async (req, res) => {
-//     console.log('Received request to /api/users');
-//     try {
-//         const { username, password } = req.body;
-//         const hashedPassword = await bcrypt.hash(password, 10);
-
-//         const existingUser = await User.findOne({ where: { username } });
-//         if (existingUser) {
-//             return res.status(400).json({ message: 'User with this username already exists' });
-//         }
-
-//         const newUser = await User.create({
-//             username,
-//             password: hashedPassword,
-//         });
-//         res.status(200).json(newUser);
-//     } catch (error) {
-//         console.error(error);
-//         alert('An error occurred during signup. Please try again');
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
 
 //get user
 router.get('/api/user', withAuth, async (req, res) => {
@@ -180,5 +159,6 @@ router.get('/login', (req, res) => {
     }
     res.render('login');
 });
+
 
 module.exports = router;

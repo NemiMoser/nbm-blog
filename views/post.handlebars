@@ -1,6 +1,11 @@
-<div class="text-center">
-    <h2>{{username}}</h2>
-    <p>{{title}}</p>
-    <p>{{content}}</p>
-    <p>created by {{username}}</p>
+
+<div class="postContent">
+    <h4>{{post.title}}</h4>
+    <p>{{post.content}}</p>
+    <h6>created by {{post.user.username}} at {{post.createdAt}} </h6>
+        <button class="btn btn-sm btn-danger" data-id="{{post.id}}">delete</button>
+        <button class="btn btn-sm edit-button" data-id="{{post.id}}">edit</button>
 </div>
+
+    <script src="/js/profile.js"></script>
+    <script src="/api/postRoutes.js"></script>

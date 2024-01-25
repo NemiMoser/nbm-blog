@@ -7,6 +7,7 @@ const path = require('path');
 const helpers = require('./utils/helpers');
 
 const routes = require('./controllers');
+const blogRoutes = require('./controllers/blogRoutes');
 const postRoutes = require('./controllers/api/postRoutes');
 const userRoutes = require('./controllers/api/userRoutes');
 
@@ -49,6 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+app.use('/blogRoutes', blogRoutes);
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

@@ -38,7 +38,7 @@ router.get('/post/:id', async (req, res) => {
                 {
                     model: User,
                     attributes: [
-                        'username',
+                        'id', 'username',
                     ],
                 },
             ],
@@ -54,6 +54,33 @@ router.get('/post/:id', async (req, res) => {
             post: post,
             logged_in: req.session.logged_in,
         });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+//edit individual post
+router.put('/post/:id', async (req, res) => {
+    try {
+        const [updatedRows] = await Post.update(
+            {
+                title: req.body.title,
+                content: req.body.content,
+            },
+            {
+                where: {
+                    id: req.params.id,
+                    user_id: req.session.user_id,
+                },
+            }
+        );
+
+        if (updatedRows === 0) {
+            res.status(404).json({ message: 'No post found with this id!' });
+            return;
+        }
+
+        res.status(204).end();
     } catch (err) {
         res.status(500).json(err);
     }

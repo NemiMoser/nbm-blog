@@ -11,7 +11,7 @@ router.post('/signup', async (req, res) => {
         console.log('Received signup request with username:', username);
         console.log('Received signup request with password:', password);
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
         const existingUser = await User.findOne({ where: { username } });
         if (existingUser) {
@@ -21,7 +21,8 @@ router.post('/signup', async (req, res) => {
 
         const newUser = await User.create({
             username,
-            password: hashedPassword,
+            password,
+            // : hashedPassword,
         });
 
         console.log('New User Data:', newUser);

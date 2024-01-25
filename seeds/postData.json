@@ -1,0 +1,18 @@
+[
+    {
+        "title": "My First Post",
+        "content": "Hello world!"
+    },
+    {
+        "title": "My Second Post",
+        "content": "Welcome to my tech blog!"
+    },
+    {
+        "title": "My Third Post",
+        "content": "I'm glad you are here!"
+    },
+    {
+        "title": "My Fourth Post",
+        "content": "Please share your own post!"
+    }
+]

@@ -1,0 +1,29 @@
+<body>
+  
+
+{{!-- post list section --}}
+    <div class="col-md-6 post-list">
+    {{#if posts.length}}
+      <h4>Previous Posts:</h4>
+      {{#each posts as |post| }}
+        <div class="row-mb-2">
+          <div class="col-md-8">
+            <h5><a href="/post/{{post.id}}">{{post.title}}</a></h5>
+          </div>
+          <div class="col-md-4">
+            <p><a href="/post/{{post.id}}">{{post.content}}</a></p>
+            <p>{{createdAt}}</p>
+            <button class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+    </div>
+
+</div>
+
+    {{#unless scriptLoaded}}
+      <script src="/js/profile.js"></script>
+    {{/unless}}
+
+</body>

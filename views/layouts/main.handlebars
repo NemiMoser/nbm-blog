@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBM Blog</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&family=Montserrat:wght@100;200&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="flex-column justify-space-around">
+        <header class="display-flex justify-space-between align-center p-2">
+            <h1> NBM Blog </h1>
+
+            <nav class="navOptions">
+                {{#if logged_in}}
+                <a href="/profile">dashboard</a>
+                <a href="/">homepage</a>
+                <button class="no-button" id="logout">logout</button>
+                {{else}}
+                <a href="/">homepage</a>
+                <a href="/login">login</a>
+                <a href="/profile">dashboard</a>
+                {{/if}}
+            </nav>
+        </header>
+
+        <main class="container container-fluid mt-5">
+            {{{ body }}}
+        </main>
+
+    </div>
+
+    {{#if logged_in}}
+    <script src="/js/homepage.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/logout.js"></script>
+    {{/if}}
+</body>
+
+</html>

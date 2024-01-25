@@ -1,0 +1,67 @@
+/* jass.css */
+
+/* some default styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #548749;
+ }
+   
+ /* styles for elements */
+ header {
+     background-color: #fd6842;
+     color: #fcf4ea;
+     padding: 10px;
+     text-align: center;
+ }
+ h1 {
+  font-family: 'Libre Barcode 128 Text', system-ui;
+ }
+
+ #addBlog {
+  padding-bottom: 50px;
+ }
+ .existingPosts {
+  padding-top: 50px;
+ }
+
+ .navOptions {
+  text-align: right;
+ }
+ 
+ ul {
+     list-style: none;
+ }
+   
+ /* style for body*/
+ .user-info{
+     padding: 10px;
+ }
+ h4 {
+     color: black;
+ }
+ 
+ /* Style links */
+ a {
+   color: #bab759;
+   text-decoration: none;
+ }
+   
+ a:hover {
+   text-decoration: underline;
+ }
+   
+ /* layout */
+ .container {
+   display: flex;
+ }
+   
+ .left-column {
+   width: 70%;
+ }
+   
+ .right-column {
+   width: 30%;
+ }
+   

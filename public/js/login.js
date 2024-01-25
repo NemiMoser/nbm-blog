@@ -1,4 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM is loaded');
 
     // Login form function
@@ -18,13 +17,17 @@
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
+        console.log('Logging in with:', { username, password });
+
         if (username && password) {
             try {
+
                 const response = await fetch('/api/users/login', {
                     method: 'POST',
                     body: JSON.stringify({ username, password }),
                     headers: { 'Content-Type': 'application/json' },
                 });
+                console.log('signup is logging');
 
                 if (response.ok) {
                     document.location.replace('/profile');
@@ -41,11 +44,18 @@
     const signUpForm = async (event) => {
         event.preventDefault();
 
-        const username = document.querySelector('#username-signup').value.trim();
-        const password = document.querySelector('#password-signup').value.trim();
+        const usernameInput = document.querySelector('#username-signup');
+        const passwordInput = document.querySelector('#password-signup');
+
+        console.log('usernameInput:', usernameInput);
+        console.log('passwordInput:', passwordInput);
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
 
         if (username && password) {
-            const response = await fetch('/api/users', {
+            try {
+            const response = await fetch('/api/users/signup', {
                 method: 'POST',
                 body: JSON.stringify({ username, password }),
                 headers: { 'Content-Type': 'application/json' },
@@ -54,12 +64,17 @@
             if (response.ok) {
                 document.location.replace('/profile');
             } else {
-                alert(response.statusText);
+                const responseBody = await response.text();
+                console.error('Failed to create user:', responseBody);
+                alert(responseBody); 
             }
+        } catch (error) {
+            console.error('Error during signup:', error);
+            alert('An error occurred during signup. Please try again');
         }
+    }
     };
 
-    // window.addEventListener('load', (event) => {
 
     // Event listeners
     document
@@ -68,6 +83,3 @@
     document
     .querySelector('.signup-form')
     .addEventListener('submit', signUpForm);
-// })
-
-// });

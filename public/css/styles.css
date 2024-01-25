@@ -17,6 +17,7 @@ body {
  }
  h1 {
   font-family: 'Libre Barcode 128 Text', system-ui;
+  font-size: 50px;
  }
 
  #addBlog {
@@ -28,6 +29,12 @@ body {
 
  .navOptions {
   text-align: right;
+ }
+ #logout {
+  color: red;
+ }
+ nav a {
+  color: #fecca5;
  }
  
  ul {

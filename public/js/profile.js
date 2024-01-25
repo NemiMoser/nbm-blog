@@ -112,13 +112,13 @@ function displayPosts(posts) {
                 </div>
                 <div class="col-md-4">
                     <p><a href="/post${post.id}">
-                    
+                    <button class="btn btn-sm btn-danger" data-id="${post.id}">DELETE</button>
                     </a></p>
                     <p>${createdAt}</p>
                     
                 </div>
             `;
-            // <button class="btn btn-sm btn-danger" data-id="${post.id}">DELETE</button>
+            // 
             postList.appendChild(postElement);
         });
     }
@@ -155,56 +155,157 @@ function displayPosts(posts) {
         }
     }
 
+// //new comment
+// const commentButtons = document.querySelectorAll('.btn-primary');
+//     commentButtons.forEach(button => {
+//         button.addEventListener('click', createComment);
+//     });
 
-    //delete post
-    async function delButton(event) {
-        if (event.target.hasAttribute('data-id')) {
-            const id = event.target.getAttribute('data-id');
+// async function createComment(event) {
+//     event.preventDefault();
 
-            const response = await fetch(`api/posts/${id}`, {
-                method: 'DELETE',
-            });
+//     const postId = event.target.dataset.postId;
+//     console.log('postId:', postId);
 
-            if (response.ok) {
-                document.location.reload();
-            } else {
-                alert('Failed to delete post!');
-            }
+//     const commentTextarea = document.querySelector(`#post-comment-${postId}`);
+//     console.log('commentTextarea:', commentTextarea);
+//     const commentText = commentTextarea.value.trim();
+
+//     if (commentText) {
+//         try {
+//             const response = await fetch(`/api/posts/${postId}/comments`, {
+//                 method: 'POST',
+//                 body: JSON.stringify({ commentText }),
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//             });
+
+//             console.log('Response:', response);
+
+//             if (response.ok) {
+//                 document.location.reload();
+//             } else {
+//                 const responseBody = await response.text();
+//                 console.error('Failed to create comment:', responseBody);
+//                 alert('Failed to create comment, please try again');
+//             }
+//         } catch (error) {
+//             console.error('Error during new comment:', error);
+//         }
+//     }
+// }
+
+
+
+// Delete and Edit event handler
+function handleButtonClick(event) {
+    const target = event.target.closest('.btn-danger, .edit-button');
+
+    if (target) {
+        if (target.classList.contains('btn-danger')) {
+            delButton(target);
+        } else if (target.classList.contains('edit-button')) {
+            editButton(target);
         }
-    };
+    }
+}
 
-    
-    //edit post
-    async function editButton(event) {
-        if (event.target.classList.contains('edit-button')) {
-            const id = event.target.getAttribute('data-id');
+// Delete post
+async function delButton(event) {
+    const id = event.target.getAttribute('data-id');
 
-            const response = await fetch(`api/posts/${id}`, {
+    console.log('Clicked delete button. Post ID:', id);
+
+    if (id) {
+        const response = await fetch(`/api/posts/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            window.location.href = '/';
+        } else {
+            alert('Failed to delete post!');
+        }
+    }
+}
+
+// Edit post
+async function editButton(event) {
+    const id = event.target.getAttribute('data-id');
+
+    console.log('Clicked edit button. Post ID:', id);
+
+    try {
+        console.log('GET URL:', `/api/posts/${id}`);
+        // Fetch the existing post data
+        const response = await fetch(`/api/posts/${id}`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            const postData = await response.json();
+
+            // Prompt the user for the updated title
+            const updatedTitle = prompt('Enter updated title:', postData.title);
+            const updatedContent = prompt('Enter updated content:', postData.content);
+
+            // Send the updated data in the PUT request
+            const updateResponse = await fetch(`/api/posts/${id}`, {
                 method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: updatedTitle,
+                    content: updatedContent,
+                }),
             });
 
-            if (response.ok) {
-                document.location.reload();
+            if (updateResponse.ok) {
+                const updatedPostData = await updateResponse.json();
+                updatePostTitle(id, updatedPostData.title);
             } else {
                 alert('Failed to update post!');
             }
+        } else {
+            alert('Failed to fetch existing post data!');
         }
-    };
+    } catch (error) {
+        console.error('Error during edit request:', error);
+        alert('Failed to update post!');
+    }
+}
 
-
-
+    
     document.addEventListener('DOMContentLoaded', () => {
         console.log('DOM is loaded');
-    
+
         const newPostForm = document.querySelector('.new-post');
         const postList = document.querySelector('.post-list');
-    
+
         if (newPostForm) {
             newPostForm.addEventListener('submit', createNewPost);
         }
-    
+
         if (postList) {
-            postList.addEventListener('click', delButton);
-            postList.addEventListener('click', editButton);
+            postList.addEventListener('click', handleButtonClick);
+        }
+
+        // const commentForm = document.querySelector('.new-comment');
+        // if (commentForm) {
+        //     commentForm.addEventListener('submit', createComment);
+        // }
+
+        // Add event listeners for delete and edit buttons in post.handlebars
+        const deleteButtonPostView = document.querySelector('.btn-danger');
+        if (deleteButtonPostView) {
+            deleteButtonPostView.addEventListener('click', delButton);
+        }
+
+        const editButtonPostView = document.querySelector('.edit-button');
+        if (editButtonPostView) {
+            editButtonPostView.addEventListener('click', editButton);
         }
     });
+

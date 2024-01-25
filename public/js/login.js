@@ -32,7 +32,8 @@
                 if (response.ok) {
                     document.location.replace('/profile');
                 } else {
-                    alert('An error occurred during login. Please try again');
+                    const responseBody = await response.json();
+                    alert(responseBody.message || 'An error occurred during login. Please try again');
                 }
             } catch (error) {
                 console.error('Error during login:', error);

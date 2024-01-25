@@ -48,6 +48,10 @@ body {
  h4 {
      color: black;
  }
+ h6 {
+  font-size: 12px;
+  color: black;
+ }
  
  /* Style links */
  a {

@@ -111,17 +111,18 @@ function displayPosts(posts) {
                     <h5><a href="/post/${post.id}">${post.title}</a></h5>
                 </div>
                 <div class="col-md-4">
-                    <p><a href="/post${post.id}">${post.content}</a></p>
+                    <p><a href="/post${post.id}">
+                    
+                    </a></p>
                     <p>${createdAt}</p>
-                    <button class="btn btn-sm btn-danger" data-id="${post.id}">DELETE</button>
+                    
                 </div>
             `;
+            // <button class="btn btn-sm btn-danger" data-id="${post.id}">DELETE</button>
             postList.appendChild(postElement);
         });
     }
     }
-
-
 
 
 //new post
@@ -172,6 +173,23 @@ function displayPosts(posts) {
         }
     };
 
+    
+    //edit post
+    async function editButton(event) {
+        if (event.target.classList.contains('edit-button')) {
+            const id = event.target.getAttribute('data-id');
+
+            const response = await fetch(`api/posts/${id}`, {
+                method: 'PUT',
+            });
+
+            if (response.ok) {
+                document.location.reload();
+            } else {
+                alert('Failed to update post!');
+            }
+        }
+    };
 
 
 
@@ -187,5 +205,6 @@ function displayPosts(posts) {
     
         if (postList) {
             postList.addEventListener('click', delButton);
+            postList.addEventListener('click', editButton);
         }
     });

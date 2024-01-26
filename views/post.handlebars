@@ -1,3 +1,4 @@
+<body>
 
 <div class="postContent">
     <h4>{{post.title}}</h4>
@@ -7,5 +8,29 @@
         <button class="btn btn-sm edit-button" data-id="{{post.id}}">edit</button>
 </div>
 
+{{!-- <div class="postComments">
+    <h5>comments:</h5>
+    {{#each post.comments}}
+        <div class="comment">
+            <p>{{this.commentText}}</p>
+            <small>by {{this.user.username}} at {{this.createdAt}}</small>
+        </div>
+    {{/each}}
+</div> --}}
+
+{{!-- <div class="leaveComment">
+    <h4>leave a comment:</h4>
+    <form class="new-comment">
+        <textarea 
+        class="input"
+        id="post-comment-{{post.id}}"></textarea>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" data-post-id="{{post.id}}">comment</button>
+        </div>
+    </form>
+</div> --}}
+
     <script src="/js/profile.js"></script>
-    <script src="/api/postRoutes.js"></script>
+
+
+</body>

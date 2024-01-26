@@ -5,6 +5,7 @@
 This is an application created as a CMS-Style tech blog where users can share articles, blog posts, thoughts and opinions.
 
 ## Table of Contents
+- [Application Screenshot](#application-screenshot)
 - [Installation Instructions](#installation-instructions)
 - [Usage Information](#usage-information)
 - [Contribution Guidelines](#contribution-guidelines)
@@ -12,11 +13,21 @@ This is an application created as a CMS-Style tech blog where users can share ar
 - [Questions](#questions)
 
 
+## Application Screenshot
+![Screenshot](./AppScreenshot.jpg)
+
 ## Installation Instructions
 In order to deploy the application, you'll need to run `npm install` in the terminal. Once that is complete, enter `npm start` in the terminal.
 
 ## Usage Information
-bcrypt, express, node.js
+- bcrypt
+- express
+- node.js
+- express-handlebars
+- MySQL
+- Sequelize
+- dotenv package
+- connect-session-sequelize
 
 ## Contribution Guidelines
 This project was created in order to complete a challenge illustrating the use of Model-View-Controller (MVC). References to module 14 were used in order to create this application.

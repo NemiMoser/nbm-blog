@@ -253,18 +253,19 @@ async function editButton(event) {
             // Send the updated data in the PUT request
             const updateResponse = await fetch(`/api/posts/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({
                     title: updatedTitle,
                     content: updatedContent,
                 }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (updateResponse.ok) {
-                const updatedPostData = await updateResponse.json();
-                updatePostTitle(id, updatedPostData.title);
+                document.location.replace(`/post/${id}`);
+                // const updatedPostData = await updateResponse.json();
+                // updatePostTitle(id, updatedPostData.title);
             } else {
                 alert('Failed to update post!');
             }
